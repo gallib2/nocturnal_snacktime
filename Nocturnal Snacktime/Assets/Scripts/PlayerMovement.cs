@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour {
 
@@ -8,6 +9,8 @@ public class PlayerMovement : MonoBehaviour {
     public float diagonalMoveModifier;
     public bool isRunning = false;
     private float currentSpeed;
+    public float noise = 0;
+    public float hunger = 0;
 
     // Use this for initialization
     void Start()
@@ -18,6 +21,13 @@ public class PlayerMovement : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        //Lose the game
+        if (noise >= 50)
+        {
+            SceneManager.LoadScene(0);
+        }
+
+
         //If the player is holding down the Run button, he will run
         if (Input.GetButtonDown("Run"))
         {
@@ -52,6 +62,15 @@ public class PlayerMovement : MonoBehaviour {
         else
         {
             currentSpeed = moveSpeed;
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Obstacle")
+        {
+            noise += 10;
+            Debug.Log(noise);
         }
     }
 }
