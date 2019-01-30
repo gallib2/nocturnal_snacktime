@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class PlayerMovement : MonoBehaviour {
-
+public class PlayerMovement : MonoBehaviour
+{
+    public Slider noisebar;
     public float moveSpeed;
     public float diagonalMoveModifier;
     public bool isRunning = false;
@@ -15,7 +17,7 @@ public class PlayerMovement : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-
+        noisebar.value = noise;
     }
 
     // Update is called once per frame
@@ -70,7 +72,12 @@ public class PlayerMovement : MonoBehaviour {
         if (other.gameObject.tag == "Obstacle")
         {
             noise += 10;
-            Debug.Log(noise);
+            noisebar.value = noise;
+        }
+
+        if (other.gameObject.tag == "Finish")
+        {
+            SceneManager.LoadScene(0);
         }
     }
 }
