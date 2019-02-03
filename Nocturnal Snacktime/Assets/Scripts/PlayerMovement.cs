@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
     public Slider noisebar;
+    public Slider hungerbar;
     public float moveSpeed;
     public float diagonalMoveModifier;
     public bool isRunning = false;
@@ -18,13 +19,15 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         noisebar.value = noise;
+        hungerbar.value = hunger;
+        InvokeRepeating("GetHungry", 2.0f, 2.0f);
     }
 
     // Update is called once per frame
     void Update()
-    {
+    {      
         //Lose the game
-        if (noise >= 50)
+        if (noise >= 50 || hunger >= 50)
         {
             SceneManager.LoadScene(0);
         }
@@ -79,5 +82,11 @@ public class PlayerMovement : MonoBehaviour
         {
             SceneManager.LoadScene(0);
         }
+    }
+
+    void GetHungry()
+    {
+        hunger += 5;
+        hungerbar.value = hunger;
     }
 }
