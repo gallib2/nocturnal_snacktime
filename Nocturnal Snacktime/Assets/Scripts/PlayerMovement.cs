@@ -15,17 +15,24 @@ public class PlayerMovement : MonoBehaviour
     public float noise = 0;
     public float hunger = 0;
 
+    public float cook1 = 0;
+    bool cooking1 = false;
+
+    bool food1 = false;
+    bool food2 = false;
+
     // Use this for initialization
     void Start()
     {
         noisebar.value = noise;
         hungerbar.value = hunger;
         InvokeRepeating("GetHungry", 2.0f, 2.0f);
+        InvokeRepeating("QuietDown", 2.0f, 2.0f);
     }
 
     // Update is called once per frame
     void Update()
-    {      
+    {
         //Lose the game
         if (noise >= 50 || hunger >= 50)
         {
@@ -68,6 +75,29 @@ public class PlayerMovement : MonoBehaviour
         {
             currentSpeed = moveSpeed;
         }
+
+
+        //If you hold the interact button to cook (need to add a condition where you are close to the object being cooked)
+        if (Input.GetButton("Interact"))
+        {
+            cook1 = Mathf.PingPong(Time.time * 7, hungerbar.maxValue);
+            hungerbar.value = cook1;
+            cooking1 = true;
+        }
+        else if ((cook1 < 3 || cook1 > 7) && (cooking1 == true))
+        {
+            noise += 30;
+            noisebar.value = noise;
+            cooking1 = false;
+            cook1 = 0;
+            hungerbar.value = cook1;
+        }
+        else if ((cook1 > 3 || cook1 < 7) && (cooking1 == true))
+        {
+            food1 = true;
+            cooking1 = false;
+            Debug.Log("Cooked!");
+        }
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -84,9 +114,20 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void GetHungry()
+    //Increase hunger over time
+    //void GetHungry()
+    //{
+    //    hunger += 5;
+    //    hungerbar.value = hunger;
+    //}
+
+    //Decrease noise over time
+    void QuietDown()
     {
-        hunger += 5;
-        hungerbar.value = hunger;
+        if (noise > 0)
+        {
+            noise -= 2.0f;
+            noisebar.value = noise;
+        }
     }
 }
