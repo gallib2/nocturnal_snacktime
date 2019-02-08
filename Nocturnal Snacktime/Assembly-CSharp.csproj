@@ -62,7 +62,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\HungerController.cs" />
+    <Compile Include="Assets\Scripts\NoiseController.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\SliderManager.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>/Users/gallib/Documents/Shenkar/Unity/nocturnal_snacktime/Nocturnal Snacktime/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

@@ -17,8 +17,8 @@ public class SliderManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hungerController = GetComponent<HungerController>();
-        noiseController = GetComponent<NoiseController>();
+        hungerController = hungerController.GetComponent<HungerController>();
+        noiseController = noiseController.GetComponent<NoiseController>();
     }
 
     // Update is called once per frame
