@@ -1,11 +1,14 @@
 ﻿<Properties StartupConfiguration="{164E80C8-B617-F907-3008-946FFE2DE603}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Spawn.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Reciept.cs">
     <Files>
       <File FileName="Assets/Scripts/NoiseController.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Inventory.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Pickup.cs" Line="27" Column="41" />
-      <File FileName="Assets/Scripts/Slot.cs" Line="21" Column="41" />
-      <File FileName="Assets/Scripts/Spawn.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Pickup.cs" Line="13" Column="47" />
+      <File FileName="Assets/Scripts/Slot.cs" Line="29" Column="60" />
+      <File FileName="Assets/Scripts/Spawn.cs" Line="16" Column="37" />
+      <File FileName="Assets/Scripts/MenuBackpack.cs" Line="26" Column="31" />
+      <File FileName="Assets/Scripts/SliderManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Reciept.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
