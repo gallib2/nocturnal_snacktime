@@ -80,8 +80,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (other.gameObject.tag == "Gaol1")
         {
+            Debug.Log("enter goal1");
             if (OnArriveKitchen != null)
             {
+                Debug.Log("enter goal");
                 OnArriveKitchen();
             }
         }
