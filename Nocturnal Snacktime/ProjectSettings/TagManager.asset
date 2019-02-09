@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Obstacle
   - Goal1
+  - Cherry
   layers:
   - Default
   - TransparentFX
@@ -49,9 +50,9 @@ TagManager:
   - name: Player
     uniqueID: 543596419
     locked: 0
+  - name: food
+    uniqueID: 2416724667
+    locked: 0
   - name: donutsSprinkles
     uniqueID: 3295996981
-    locked: 0
-  - name: donuts
-    uniqueID: 2416724667
     locked: 0

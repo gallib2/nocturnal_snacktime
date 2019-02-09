@@ -67,6 +67,8 @@
     <Compile Include="Assets\Scripts\Pickup.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\SliderManager.cs" />
+    <Compile Include="Assets\Scripts\Slot.cs" />
+    <Compile Include="Assets\Scripts\Spawn.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>/Users/gallib/Documents/Shenkar/Unity/nocturnal_snacktime/Nocturnal Snacktime/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
