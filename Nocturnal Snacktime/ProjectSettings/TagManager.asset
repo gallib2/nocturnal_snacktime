@@ -8,6 +8,7 @@ TagManager:
   - Goal1
   - Cherry
   - MenuItem
+  - Donut
   layers:
   - Default
   - TransparentFX

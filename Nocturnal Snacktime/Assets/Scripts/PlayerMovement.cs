@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static event Action OnArriveKitchen;
+
     public HungerController hungerController;
     public NoiseController noiseController;
 
@@ -73,6 +76,14 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.tag == "Finish")
         {
             SceneManager.LoadScene(0);
+        }
+
+        if (other.gameObject.tag == "Gaol1")
+        {
+            if (OnArriveKitchen != null)
+            {
+                OnArriveKitchen();
+            }
         }
     }
 }
