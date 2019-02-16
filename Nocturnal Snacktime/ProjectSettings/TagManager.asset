@@ -9,6 +9,7 @@ TagManager:
   - Cherry
   - MenuItem
   - Donut
+  - ObstacleLight
   layers:
   - Default
   - TransparentFX
