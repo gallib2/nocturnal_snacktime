@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
     public static event Action OnArriveKitchen;
+    public static event Action OnTouchedTvController;
+    public static event Action OnTouchLightSwitch;
 
     public HungerController hungerController;
     public NoiseController noiseController;
@@ -16,12 +18,17 @@ public class PlayerMovement : MonoBehaviour
     public bool isRunning = false;
     private float currentSpeed;
 
+    public float noiseInfluentRegular;
+    public float noiseInfluentLight;
+
     // Use this for initialization
     void Start()
     {
-
         hungerController = hungerController.GetComponent<HungerController>();
         noiseController = noiseController.GetComponent<NoiseController>();
+
+        noiseInfluentRegular = 10;
+        noiseInfluentLight = 5;
     }
 
     // Update is called once per frame
@@ -69,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.tag == "Obstacle")
         {
-            noiseController.noise += 10;
+            noiseController.noise += noiseInfluentRegular;
             noiseController.noisebar.value = noiseController.noise;
         }
 
@@ -86,6 +93,38 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log("enter goal");
                 OnArriveKitchen();
             }
+        }
+
+        if(other.gameObject.tag == "TvController")
+        {
+            Destroy(other.gameObject);
+
+            if(OnTouchedTvController != null)
+            {
+                OnTouchedTvController();
+            }
+        }
+
+        if(other.gameObject.tag == "LightSwitch")
+        {
+            Destroy(other.gameObject);
+
+            if (OnTouchLightSwitch != null)
+            {
+                OnTouchLightSwitch();
+            }
+
+
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "ObstacleLight")
+        {
+            Debug.Log("enter ObstacleLight");
+            noiseController.noise += noiseInfluentLight;
+            noiseController.noisebar.value = noiseController.noise;
         }
     }
 }

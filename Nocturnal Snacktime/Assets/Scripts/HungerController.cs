@@ -14,7 +14,7 @@ public class HungerController : MonoBehaviour
     void Start()
     {
         hungerbar.value = hunger;
-        //InvokeRepeating("GetHungry", 2.0f, 2.0f);
+        InvokeRepeating("GetHungry", 2.0f, 2.0f);
     }
 
     // Update is called once per frame
@@ -23,11 +23,11 @@ public class HungerController : MonoBehaviour
 
     }
 
-    //Increase hunger over time
-    //void GetHungry()
-    //{
-    //    hunger += 5;
-    //    hungerbar.value = hunger;
-    //}
+    // Increase hunger over time
+    void GetHungry()
+    {
+        hunger += 2;
+        hungerbar.value = hunger;
+    }
 
 }
