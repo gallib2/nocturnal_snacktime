@@ -1,15 +1,14 @@
 ﻿<Properties StartupConfiguration="{164E80C8-B617-F907-3008-946FFE2DE603}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/HungerController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerMovement.cs">
     <Files>
-      <File FileName="../../color-chaser/Assets/Scripts/PlayerControll.cs" Line="47" Column="32" />
       <File FileName="Assets/Scripts/Pickup.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Slot.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/MenuBackpack.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Reciept.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/PlayerMovement.cs" Line="104" Column="71" />
+      <File FileName="Assets/Scripts/PlayerMovement.cs" Line="24" Column="5" />
       <File FileName="Assets/Scripts/CarAnimation.cs" Line="21" Column="47" />
-      <File FileName="Assets/Scripts/LightAnimation.cs" Line="31" Column="27" />
-      <File FileName="Assets/Scripts/GameNocturnalSnacktimeManager.cs" Line="23" Column="58" />
+      <File FileName="Assets/Scripts/LightAnimation.cs" Line="34" Column="1" />
+      <File FileName="Assets/Scripts/GameNocturnalSnacktimeManager.cs" Line="39" Column="9" />
       <File FileName="Assets/Scripts/HungerController.cs" Line="29" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>

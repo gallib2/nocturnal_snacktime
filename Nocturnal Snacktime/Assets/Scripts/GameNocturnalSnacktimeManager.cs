@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameNocturnalSnacktimeManager : MonoBehaviour
 {
     Reciept reciept;
+    public GameObject roomLight;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,7 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
     private void OnEnable()
     {
         PlayerMovement.OnArriveKitchen += CheckIfGameEnd;
+        PlayerMovement.OnTouchLightSwitch += LightTurnOn;
     }
 
     public void CheckIfGameEnd()
@@ -31,6 +33,11 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
         Debug.Log("inentory " + inventory.slots.Length);
         Debug.Log("rec childs" + reciept.GetComponentsInChildren<GameObject>().Length);
 
+    }
+
+    private void LightTurnOn()
+    {
+        roomLight.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0.2f); //Color.white;
     }
 
 

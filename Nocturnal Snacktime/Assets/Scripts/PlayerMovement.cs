@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public static event Action OnArriveKitchen;
     public static event Action OnTouchedTvController;
+    public static event Action OnTouchLightSwitch;
 
     public HungerController hungerController;
     public NoiseController noiseController;
@@ -96,14 +97,24 @@ public class PlayerMovement : MonoBehaviour
 
         if(other.gameObject.tag == "TvController")
         {
-            Debug.Log("insert collsion TvController");
             Destroy(other.gameObject);
 
             if(OnTouchedTvController != null)
             {
-                Debug.Log("insert OnTouchedTvController diff from null");
                 OnTouchedTvController();
             }
+        }
+
+        if(other.gameObject.tag == "LightSwitch")
+        {
+            Destroy(other.gameObject);
+
+            if (OnTouchLightSwitch != null)
+            {
+                OnTouchLightSwitch();
+            }
+
+
         }
     }
 
