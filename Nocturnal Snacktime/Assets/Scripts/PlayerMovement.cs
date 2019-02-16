@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
     public static event Action OnArriveKitchen;
+    public static event Action OnTouchedTvController;
 
     public HungerController hungerController;
     public NoiseController noiseController;
@@ -90,6 +91,18 @@ public class PlayerMovement : MonoBehaviour
             {
                 Debug.Log("enter goal");
                 OnArriveKitchen();
+            }
+        }
+
+        if(other.gameObject.tag == "TvController")
+        {
+            Debug.Log("insert collsion TvController");
+            Destroy(other.gameObject);
+
+            if(OnTouchedTvController != null)
+            {
+                Debug.Log("insert OnTouchedTvController diff from null");
+                OnTouchedTvController();
             }
         }
     }

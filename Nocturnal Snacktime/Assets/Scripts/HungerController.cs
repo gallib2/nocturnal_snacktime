@@ -26,7 +26,7 @@ public class HungerController : MonoBehaviour
     // Increase hunger over time
     void GetHungry()
     {
-        hunger += 5;
+        hunger += 2;
         hungerbar.value = hunger;
     }
 

@@ -11,6 +11,7 @@ TagManager:
   - Donut
   - ObstacleLight
   - Car
+  - TvController
   layers:
   - Default
   - TransparentFX
