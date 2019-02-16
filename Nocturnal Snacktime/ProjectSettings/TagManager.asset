@@ -12,6 +12,7 @@ TagManager:
   - ObstacleLight
   - Car
   - TvController
+  - LightSwitch
   layers:
   - Default
   - TransparentFX
