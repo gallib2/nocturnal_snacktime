@@ -85,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
             SceneManager.LoadScene(0);
         }
 
-        if (other.gameObject.tag == "Gaol1")
+        if (other.gameObject.tag == "Goal1")
         {
             Debug.Log("enter goal1");
             if (OnArriveKitchen != null)
@@ -95,17 +95,25 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        // if the player touch the TV controller
         if(other.gameObject.tag == "TvController")
         {
+            // destroy the TV controller
             Destroy(other.gameObject);
 
+            // notify that the player touch the controller
+            // the LightAnimation is listening to this event 
+            // when we call this function the LightAnimation will 'close' the TV
             if(OnTouchedTvController != null)
             {
                 OnTouchedTvController();
             }
         }
 
-        if(other.gameObject.tag == "LightSwitch")
+        // notify that the player touch the light switch
+        // the Game Manager is listening to this event 
+        // when we call this function the Game Manager will 'turn the light on'
+        if (other.gameObject.tag == "LightSwitch")
         {
             Destroy(other.gameObject);
 
@@ -120,9 +128,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // the obstacleLight is the obstacles that makes less noise
+        // for example: the carpets are 'ObstacleLight'.
         if (other.tag == "ObstacleLight")
         {
-            Debug.Log("enter ObstacleLight");
             noiseController.noise += noiseInfluentLight;
             noiseController.noisebar.value = noiseController.noise;
         }
