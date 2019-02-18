@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameNocturnalSnacktimeManager : MonoBehaviour
 {
-    Reciept reciept;
+    public Reciept reciept;
     public GameObject roomLight;
 
     // Start is called before the first frame update
@@ -30,14 +30,13 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
         Inventory inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
         reciept = reciept.GetComponent<Reciept>();
 
-        Debug.Log("inentory " + inventory.slots.Length);
-        Debug.Log("rec childs" + reciept.GetComponentsInChildren<GameObject>().Length);
-
+        Debug.Log("num of items: " + reciept.recieptsItmes.Length);
     }
 
+    // turn the light of the house (the same color but with less alfa)
     private void LightTurnOn()
     {
-        roomLight.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0.2f); //Color.white;
+        roomLight.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0.2f);
     }
 
 

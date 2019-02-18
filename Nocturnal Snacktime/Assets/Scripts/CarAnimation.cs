@@ -15,10 +15,9 @@ public class CarAnimation : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("OnCollisionEnter2D CAR");
+        // if the player touch the car, start the animation of the car
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("Insert IF CAR Collision");
             animator.SetBool("isTouchCar", true);
         }
     }
