@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
 
     public HungerController hungerController;
     public NoiseController noiseController;
+    public Slider cookingSlider;
+    public Canvas toggleableCanvas;
 
     public float moveSpeed;
     public float diagonalMoveModifier;
@@ -20,6 +23,13 @@ public class PlayerMovement : MonoBehaviour
 
     public float noiseInfluentRegular;
     public float noiseInfluentLight;
+
+    public float cook1 = 0;
+    bool cooking1 = false;
+    bool inKitchen = false;
+
+    bool food1 = false;
+    bool food2 = false;
 
     // Use this for initialization
     void Start()
@@ -70,6 +80,40 @@ public class PlayerMovement : MonoBehaviour
         {
             currentSpeed = moveSpeed;
         }
+
+        //If player is in the kitchen
+        if (inKitchen == true)
+        {
+            //Cooking slider appears
+            toggleableCanvas.enabled = true;
+
+            //If player presses the cooking button
+            if (Input.GetButton("Interact"))
+            {
+                cook1 = Mathf.PingPong(Time.time * 7, cookingSlider.maxValue);
+                cookingSlider.value = cook1;
+                cooking1 = true;
+            }
+            //If player lets go of the cooking button and fails to stop around center
+            else if ((cook1 < 3 || cook1 > 7) && (cooking1 == true))
+            {
+                noiseController.noise += 30;
+                noiseController.noisebar.value = noiseController.noise;
+                cooking1 = false;
+                cook1 = 0;
+                hungerController.hungerbar.value = cook1;
+            }
+            //if player lets go of the cooking button and succeeds at stopping around center
+            else if ((cook1 > 3 || cook1 < 7) && (cooking1 == true))
+            {
+                food1 = true;
+                cooking1 = false;
+                Debug.Log("Cooked!");
+            }
+        }
+        //If the player is not in the kitchen, the cooking slider is invisible
+        else
+            toggleableCanvas.enabled = false;
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -78,11 +122,6 @@ public class PlayerMovement : MonoBehaviour
         {
             noiseController.noise += noiseInfluentRegular;
             noiseController.noisebar.value = noiseController.noise;
-        }
-
-        if (other.gameObject.tag == "Finish")
-        {
-            SceneManager.LoadScene(0);
         }
 
         if (other.gameObject.tag == "Goal1")
@@ -135,5 +174,18 @@ public class PlayerMovement : MonoBehaviour
             noiseController.noise += noiseInfluentLight;
             noiseController.noisebar.value = noiseController.noise;
         }
+
+        if (other.tag == "Goal1")
+        {
+            inKitchen = true;
+        }
     }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "Goal1")
+        {
+            inKitchen = false;
+        }
+    }    
 }
