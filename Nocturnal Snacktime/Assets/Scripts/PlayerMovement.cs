@@ -113,7 +113,10 @@ public class PlayerMovement : MonoBehaviour
         }
         //If the player is not in the kitchen, the cooking slider is invisible
         else
+        {
             toggleableCanvas.enabled = false;
+        }
+
     }
 
     void OnCollisionEnter2D(Collision2D other)
