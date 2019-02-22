@@ -18,17 +18,12 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
         Inventory inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
         reciept = reciept.GetComponent<Reciept>();
 
-        Debug.Log("reciept.recieptsItmes[0]: " + reciept.recieptsItmes[0].name);
-        //Debug.Log("inventory.ingredients[0]: " + inventory.ingredients[0].name);
-        //bool isEqual = inventory.ingredients[0].name == reciept.recieptsItmes[0].name;
-        //Debug.Log("isEqual " + isEqual);
-
-        // bool[] isCollectAll = new bool[reciept.recieptsItmes.Length];
-
-        // List<bool> isCollectAll = new List<bool>();
-
+        // counter for the equal items that in the ingredient and the recipe
         int counter = 0;
 
+        // for every item in the ingredients (ingredients is what the player collected)
+        // we check if the ingredient contained in the recipe.
+        // if the ingredient contained, we increase the counter
         foreach (GameObject ingredient in inventory.ingredients)
         {
             if (ingredient != null)
@@ -37,7 +32,6 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
                 {
                     if (recipeItem.name == ingredient.name)
                     {
-                        // isCollectAll.Add(true);
                         counter++;
                         break;
                     }
@@ -45,6 +39,8 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
             }
         }
 
+        // if the counter is with the same size as the recipeItems,
+        // that means we collected all
         if(counter == reciept.recieptsItmes.Length)
         {
             Debug.Log("End Game is true!!!");
