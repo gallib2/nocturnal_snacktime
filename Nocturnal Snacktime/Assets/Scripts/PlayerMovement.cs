@@ -140,9 +140,6 @@ public class PlayerMovement : MonoBehaviour
         // if the player touch the TV controller
         if(other.gameObject.tag == "TvController")
         {
-            // destroy the TV controller
-            Destroy(other.gameObject);
-
             // notify that the player touch the controller
             // the LightAnimation is listening to this event 
             // when we call this function the LightAnimation will 'close' the TV
@@ -150,6 +147,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 OnTouchedTvController();
             }
+
+            // destroy the TV controller
+            Destroy(other.gameObject);
         }
 
         // notify that the player touch the light switch
@@ -157,12 +157,12 @@ public class PlayerMovement : MonoBehaviour
         // when we call this function the Game Manager will 'turn the light on'
         if (other.gameObject.tag == "LightSwitch")
         {
-            Destroy(other.gameObject);
-
             if (OnTouchLightSwitch != null)
             {
                 OnTouchLightSwitch();
             }
+
+            Destroy(other.gameObject);
 
 
         }
