@@ -12,6 +12,11 @@ public class Reciept : MonoBehaviour
 
     private Vector2 initialPosition;
 
+    //void Awake()
+    //{
+    //    DontDestroyOnLoad(this.gameObject);
+    //}
+
     // Start is called before the first frame update
     void Start()
     {

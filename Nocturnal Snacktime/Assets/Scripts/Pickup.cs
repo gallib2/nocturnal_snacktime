@@ -24,6 +24,7 @@ public class Pickup : MonoBehaviour
                     // Item can be added to inventory
                     inventory.isFull[i] = true;
                     Instantiate(itemButton, inventory.slots[i].transform, false);
+                    inventory.ingredients[i] = itemButton;
                     Destroy(gameObject);
                     break;
                 }

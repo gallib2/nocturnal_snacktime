@@ -13,6 +13,8 @@ TagManager:
   - Car
   - TvController
   - LightSwitch
+  - UI
+  - FinishLevelPanel
   layers:
   - Default
   - TransparentFX
