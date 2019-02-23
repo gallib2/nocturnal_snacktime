@@ -84,10 +84,10 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
         {
             Debug.Log("End Game is true!!!");
 
-            if(FinishLevelPanel != null)
-            {
-                FinishLevelPanel.SetActive(true);
-            }
+            //if(FinishLevelPanel != null)
+            //{
+            //    FinishLevelPanel.SetActive(true);
+            //}
             //if(FinishLevelPanel == null)
             //{
             //    GameObject x = Instantiate(FinishLevelPanel, FinishLevelPanel.transform, true);
@@ -107,7 +107,7 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
 
     public void CloseFinishMenu()
     {
-        FinishLevelPanel.SetActive(false);
+        //FinishLevelPanel.SetActive(false);
     }
 
 }
