@@ -32,7 +32,9 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
     {
         recipe = recipe.GetComponent<Reciept>();
 
-        //FinishLevelPanel = GameObject.FindGameObjectWithTag("FinishLevelPanel");
+        //GameObject[] FinishLevelPanels = GameObject.FindGameObjectsWithTag("FinishLevelPanel");
+
+        //Debug.Log("Length: " + FinishLevelPanels.Length);
         //FinishLevelPanel = FinishLevelPanel.GetComponent<GameObject>();
         //FinishLevelPanel.SetActive(false);
     }
@@ -48,6 +50,24 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
     {
         //FinishLevelPanel.SetActive(false);
          SceneManager.LoadScene(0);
+
+        //if (FinishLevelPanel != null)
+        //{
+        //    GameObject[] FinishLevelPanels = GameObject.FindGameObjectsWithTag("FinishLevelPanel");
+
+        //    for (int i = 0; i < FinishLevelPanels.Length; i++)
+        //    {
+        //        FinishLevelPanels[i].SetActive(false);
+        //    }
+
+        //    if (FinishLevelPanels.Length == 0)
+        //    {
+        //        FinishLevelPanel.SetActive(false);
+        //    }
+
+        //    Debug.Log("closing popup menu....");
+        //    //FinishLevelPanel.SetActive(false);
+        //}
 
         //SceneManager.LoadScene()
     }
@@ -75,6 +95,7 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
                         break;
                     }
                 }
+
             }
         }
 
@@ -86,7 +107,19 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
 
             //if(FinishLevelPanel != null)
             //{
+            //GameObject[] FinishLevelPanels = GameObject.FindGameObjectsWithTag("FinishLevelPanel");
+
+            //for (int i = 0; i < FinishLevelPanels.Length; i++)
+            //{
+            //    FinishLevelPanels[i].gameObject.SetActive(true);
+            //}
+
+            //if(FinishLevelPanels.Length == 0)
+            //{
             //    FinishLevelPanel.SetActive(true);
+            //}
+
+            //FinishLevelPanel.SetActive(true);
             //}
             //if(FinishLevelPanel == null)
             //{
