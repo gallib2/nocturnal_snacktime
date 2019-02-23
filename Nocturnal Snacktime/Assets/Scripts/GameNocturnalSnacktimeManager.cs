@@ -1,22 +1,57 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameNocturnalSnacktimeManager : MonoBehaviour
 {
-    public Reciept reciept;
+    public Reciept recipe;
     public GameObject roomLight;
+    public GameObject FinishLevelPanel;
+
+    void Awake()
+    {
+        GameObject obj = GameObject.FindGameObjectWithTag("UI");
+        // GameObject[] objs = GameObject.FindGameObjectsWithTag("UI");
+
+        //if (objs.Length > 1)
+        //{
+        //    Destroy(this.gameObject);
+        //}
+
+        //DontDestroyOnLoad(obj);
+        // DontDestroyOnLoad(recipe);
+        //FinishLevelPanel.SetActive(false);
+    }
+
+    private void Start()
+    {
+        recipe = recipe.GetComponent<Reciept>();
+
+        //FinishLevelPanel = GameObject.FindGameObjectWithTag("FinishLevelPanel");
+        //FinishLevelPanel = FinishLevelPanel.GetComponent<GameObject>();
+        //FinishLevelPanel.SetActive(false);
+    }
 
     private void OnEnable()
     {
         PlayerMovement.OnArriveKitchen += CheckIfGameEnd;
-        PlayerMovement.OnTouchLightSwitch += LightTurnOn;
+        // PlayerMovement.OnTouchLightSwitch += LightTurnOn;
+        SliderManager.OnRestartGame += RestartGame;
+    }
+
+    public void RestartGame()
+    {
+        //FinishLevelPanel.SetActive(false);
+         SceneManager.LoadScene(0);
+
+        //SceneManager.LoadScene()
     }
 
     public void CheckIfGameEnd()
     {
         Inventory inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
-        reciept = reciept.GetComponent<Reciept>();
+        // recipe = recipe.GetComponent<Reciept>();
 
         // counter for the equal items that in the ingredient and the recipe
         int counter = 0;
@@ -28,7 +63,7 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
         {
             if (ingredient != null)
             {
-                foreach (var recipeItem in reciept.recieptsItmes)
+                foreach (var recipeItem in recipe.recieptsItmes)
                 {
                     if (recipeItem.name == ingredient.name)
                     {
@@ -41,9 +76,10 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
 
         // if the counter is with the same size as the recipeItems,
         // that means we collected all
-        if(counter == reciept.recieptsItmes.Length)
+        if(counter == recipe.recieptsItmes.Length)
         {
             Debug.Log("End Game is true!!!");
+            //FinishLevelPanel.SetActive(true);
         }
         else
         {
@@ -52,10 +88,10 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
         }
     }
 
-    // turn the light of the house (the same color but with less alfa)
-    private void LightTurnOn()
-    {
-        roomLight.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0.2f);
-    }
+    //// turn the light of the house (the same color but with less alfa)
+    //private void LightTurnOn()
+    //{
+    //    roomLight.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0.2f);
+    //}
 
 }

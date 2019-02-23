@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SliderManager : MonoBehaviour
 {
+    public static event Action OnRestartGame;
+
     public HungerController hungerController;
     public NoiseController noiseController;
 
@@ -21,7 +24,11 @@ public class SliderManager : MonoBehaviour
         //Lose the game
         if (noiseController.noise >= 50 || hungerController.hunger >= 50)
         {
-            SceneManager.LoadScene(0);
+            if(OnRestartGame != null)
+            {
+                OnRestartGame();
+            }
+           // SceneManager.LoadScene(0);
         }
     }
 }
