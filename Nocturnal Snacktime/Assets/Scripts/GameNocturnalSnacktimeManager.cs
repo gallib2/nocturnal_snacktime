@@ -10,66 +10,42 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
 
     void Awake()
     {
+        // This will keep the panel: "FinishLevelPanels" alive when we restart the level
         GameObject obj = GameObject.FindGameObjectWithTag("UI");
-        // GameObject[] objs = GameObject.FindGameObjectsWithTag("UI");
-
-        //if (objs.Length > 1)
-        //{
-        //    Destroy(this.gameObject);
-        //}
-
         DontDestroyOnLoad(obj);
-         //DontDestroyOnLoad(obj);
-        //FinishLevelPanel.SetActive(false);
-
-        //if(FinishLevelPanel != null)
-        //{
-        //    DestroyImmediate(FinishLevelPanel, true);
-        //}
     }
 
     private void Start()
     {
         recipe = recipe.GetComponent<Reciept>();
-
-        //GameObject[] FinishLevelPanels = GameObject.FindGameObjectsWithTag("FinishLevelPanel");
-
-        //Debug.Log("Length: " + FinishLevelPanels.Length);
-        //FinishLevelPanel = FinishLevelPanel.GetComponent<GameObject>();
-        //FinishLevelPanel.SetActive(false);
     }
 
     private void OnEnable()
     {
+        if (FinishLevelPanel != null)
+        {
+            FinishLevelPanel.SetActive(false);
+        }
+
         PlayerMovement.OnArriveKitchen += CheckIfGameEnd;
-        // PlayerMovement.OnTouchLightSwitch += LightTurnOn;
         SliderManager.OnRestartGame += RestartGame;
+    }
+
+    private void OnDisable()
+    {
+        if(FinishLevelPanel != null)
+        {
+            FinishLevelPanel.SetActive(false);
+        }
+
+        PlayerMovement.OnArriveKitchen -= CheckIfGameEnd;
+        SliderManager.OnRestartGame -= RestartGame;
     }
 
     public void RestartGame()
     {
         //FinishLevelPanel.SetActive(false);
          SceneManager.LoadScene(0);
-
-        //if (FinishLevelPanel != null)
-        //{
-        //    GameObject[] FinishLevelPanels = GameObject.FindGameObjectsWithTag("FinishLevelPanel");
-
-        //    for (int i = 0; i < FinishLevelPanels.Length; i++)
-        //    {
-        //        FinishLevelPanels[i].SetActive(false);
-        //    }
-
-        //    if (FinishLevelPanels.Length == 0)
-        //    {
-        //        FinishLevelPanel.SetActive(false);
-        //    }
-
-        //    Debug.Log("closing popup menu....");
-        //    //FinishLevelPanel.SetActive(false);
-        //}
-
-        //SceneManager.LoadScene()
     }
 
     public void CheckIfGameEnd()
@@ -104,32 +80,10 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
         if(counter == recipe.recieptsItmes.Length)
         {
             Debug.Log("End Game is true!!!");
-
-            //if(FinishLevelPanel != null)
-            //{
-            //GameObject[] FinishLevelPanels = GameObject.FindGameObjectsWithTag("FinishLevelPanel");
-
-            //for (int i = 0; i < FinishLevelPanels.Length; i++)
-            //{
-            //    FinishLevelPanels[i].gameObject.SetActive(true);
-            //}
-
-            //if(FinishLevelPanels.Length == 0)
-            //{
-            //    FinishLevelPanel.SetActive(true);
-            //}
-
-            //FinishLevelPanel.SetActive(true);
-            //}
-            //if(FinishLevelPanel == null)
-            //{
-            //    GameObject x = Instantiate(FinishLevelPanel, FinishLevelPanel.transform, true);
-            //    x.SetActive(true);
-            //}
-            //else
-            //{
-            //    FinishLevelPanel.SetActive(true);
-            //}
+            if (FinishLevelPanel != null)
+            {
+                FinishLevelPanel.SetActive(true);
+            }
         }
         else
         {
