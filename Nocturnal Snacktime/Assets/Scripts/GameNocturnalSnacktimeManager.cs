@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class GameNocturnalSnacktimeManager : MonoBehaviour
 {
     public Reciept recipe;
-    public GameObject roomLight;
     public GameObject FinishLevelPanel;
 
     void Awake()
@@ -19,9 +18,14 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
         //    Destroy(this.gameObject);
         //}
 
-        //DontDestroyOnLoad(obj);
-        // DontDestroyOnLoad(recipe);
+        DontDestroyOnLoad(obj);
+         //DontDestroyOnLoad(obj);
         //FinishLevelPanel.SetActive(false);
+
+        //if(FinishLevelPanel != null)
+        //{
+        //    DestroyImmediate(FinishLevelPanel, true);
+        //}
     }
 
     private void Start()
@@ -79,7 +83,20 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
         if(counter == recipe.recieptsItmes.Length)
         {
             Debug.Log("End Game is true!!!");
-            //FinishLevelPanel.SetActive(true);
+
+            if(FinishLevelPanel != null)
+            {
+                FinishLevelPanel.SetActive(true);
+            }
+            //if(FinishLevelPanel == null)
+            //{
+            //    GameObject x = Instantiate(FinishLevelPanel, FinishLevelPanel.transform, true);
+            //    x.SetActive(true);
+            //}
+            //else
+            //{
+            //    FinishLevelPanel.SetActive(true);
+            //}
         }
         else
         {
@@ -88,10 +105,9 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
         }
     }
 
-    //// turn the light of the house (the same color but with less alfa)
-    //private void LightTurnOn()
-    //{
-    //    roomLight.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0.2f);
-    //}
+    public void CloseFinishMenu()
+    {
+        FinishLevelPanel.SetActive(false);
+    }
 
 }
