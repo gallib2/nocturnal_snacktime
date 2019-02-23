@@ -91,10 +91,4 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
 
         }
     }
-
-    public void CloseFinishMenu()
-    {
-        //FinishLevelPanel.SetActive(false);
-    }
-
 }
