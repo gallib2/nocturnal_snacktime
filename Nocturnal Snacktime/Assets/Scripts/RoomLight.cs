@@ -19,5 +19,6 @@ public class RoomLight : MonoBehaviour
     {
         gameObject.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0.2f);
         // GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0.2f);
+
     }
 }

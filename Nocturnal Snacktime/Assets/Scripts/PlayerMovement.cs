@@ -9,11 +9,13 @@ public class PlayerMovement : MonoBehaviour
     public static event Action OnArriveKitchen;
     public static event Action OnTouchedTvController;
     public static event Action OnTouchLightSwitch;
+    public static event Action OnTouchedObstacle;
 
     public HungerController hungerController;
     public NoiseController noiseController;
     public Slider cookingSlider;
     public Canvas toggleableCanvas;
+    public Canvas timedCanvas;
 
     public float moveSpeed;
     public float diagonalMoveModifier;
@@ -33,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        Destroy(timedCanvas, 10.0f);
         hungerController = hungerController.GetComponent<HungerController>();
         noiseController = noiseController.GetComponent<NoiseController>();
 
@@ -43,6 +46,15 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //If moving, make stepping noises
+        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        {
+            GetComponent<AudioSource>().UnPause();
+        }
+        else
+        {
+            GetComponent<AudioSource>().Pause();
+        }
     
         //If the player is holding down the Run button, he will run
         if (Input.GetButtonDown("Run"))
@@ -120,10 +132,11 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Obstacle")
+        if (other.gameObject.tag == "Obstacle" && OnTouchedObstacle != null)
         {
             noiseController.noise += noiseInfluentRegular;
             noiseController.noisebar.value = noiseController.noise;
+            OnTouchedObstacle();
         }
 
         if (other.gameObject.tag == "Goal1")
@@ -175,6 +188,7 @@ public class PlayerMovement : MonoBehaviour
         {
             noiseController.noise += noiseInfluentLight;
             noiseController.noisebar.value = noiseController.noise;
+
         }
 
         if (other.tag == "Goal1")
