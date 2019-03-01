@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\HungerController.cs" />
     <Compile Include="Assets\Scripts\Inventory.cs" />
     <Compile Include="Assets\Scripts\LightAnimation.cs" />
+    <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\MenuBackpack.cs" />
     <Compile Include="Assets\Scripts\NoiseController.cs" />
     <Compile Include="Assets\Scripts\PickSnack.cs" />

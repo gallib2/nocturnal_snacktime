@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class RoomLight : MonoBehaviour
 {
+    Animator animator;
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     private void OnEnable()
     {
         PlayerMovement.OnTouchLightSwitch += LightTurnOn;
@@ -20,5 +27,10 @@ public class RoomLight : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0.2f);
         // GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0.2f);
 
+    }
+
+    public void StartEndGameAnimation()
+    {
+        animator.SetBool("isDead", true);
     }
 }

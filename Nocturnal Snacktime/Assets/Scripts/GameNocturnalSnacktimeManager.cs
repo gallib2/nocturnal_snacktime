@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameNocturnalSnacktimeManager : MonoBehaviour
 {
+    public RoomLight roomLight;
     public Reciept recipe;
     public GameObject FinishLevelPanel;
 
@@ -13,11 +14,16 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
         // This will keep the panel: "FinishLevelPanels" alive when we restart the level
         GameObject obj = GameObject.FindGameObjectWithTag("UI");
         DontDestroyOnLoad(obj);
+        //GameObject obj2 = GameObject.FindGameObjectWithTag("MainCamera");
+        //DontDestroyOnLoad(obj2);
+        //GameObject obj3 = GameObject.FindGameObjectWithTag("Player");
+        //DontDestroyOnLoad(obj3);
     }
 
     private void Start()
     {
         recipe = recipe.GetComponent<Reciept>();
+        roomLight = roomLight.GetComponent<RoomLight>();
     }
 
     private void OnEnable()
@@ -45,8 +51,16 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
     public void RestartGame()
     {
         //FinishLevelPanel.SetActive(false);
-         SceneManager.LoadScene(0);
+        StartCoroutine(ReloadGameWithWaiting(2));
+        roomLight.StartEndGameAnimation();
     }
+
+    IEnumerator ReloadGameWithWaiting(int seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        SceneManager.LoadScene(0);
+    }
+
 
     public void CheckIfGameEnd()
     {
