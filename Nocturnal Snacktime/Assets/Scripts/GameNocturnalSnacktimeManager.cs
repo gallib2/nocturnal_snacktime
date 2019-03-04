@@ -34,7 +34,7 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
         }
 
         PlayerMovement.OnArriveKitchen += CheckIfGameEnd;
-        SliderManager.OnRestartGame += RestartGame;
+        SliderManager.OnGameOver += ReloadGameOverScreen;
     }
 
     private void OnDisable()
@@ -45,12 +45,17 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
         }
 
         PlayerMovement.OnArriveKitchen -= CheckIfGameEnd;
-        SliderManager.OnRestartGame -= RestartGame;
+        SliderManager.OnGameOver -= ReloadGameOverScreen;
     }
 
     public void RestartGame()
     {
         //FinishLevelPanel.SetActive(false);
+        SceneManager.LoadScene(1);
+    }
+
+    public void ReloadGameOverScreen()
+    {
         StartCoroutine(ReloadGameWithWaiting(2));
         roomLight.StartEndGameAnimation();
     }
