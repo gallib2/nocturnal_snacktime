@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public static event Action OnArriveKitchen;
     public static event Action OnTouchedTvController;
+    public static event Action OnTurnTvOn;
     public static event Action OnTouchLightSwitch;
     public static event Action OnTouchedObstacle;
 
@@ -175,8 +176,6 @@ public class PlayerMovement : MonoBehaviour
             }
 
             Destroy(other.gameObject);
-
-
         }
     }
 
@@ -194,6 +193,14 @@ public class PlayerMovement : MonoBehaviour
         if (other.tag == "Goal1")
         {
             inKitchen = true;
+        }
+
+        if (other.tag == "TvOnCollider")
+        {
+            Debug.Log("enter trigger open tv....");
+            OnTurnTvOn?.Invoke();
+
+            Destroy(other);
         }
     }
 
