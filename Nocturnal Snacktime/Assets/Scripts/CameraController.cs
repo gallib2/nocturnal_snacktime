@@ -36,6 +36,11 @@ public class CameraController : MonoBehaviour
         Debug.Log("Signed to event");
     }
 
+    private void OnDisable()
+    {
+        PlayerMovement.OnTouchedObstacle -= Shake;
+    }
+
     //Shake camera and then stop
     public void Shake()
     {
