@@ -7048,7 +7048,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 443269449}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 69b2f56f9b24c3a4facfa6581fde9551, type: 3}
@@ -24955,6 +24955,7 @@ GameObject:
   - component: {fileID: 1646068570}
   - component: {fileID: 1646068569}
   - component: {fileID: 1646068568}
+  - component: {fileID: 1646068571}
   m_Layer: 0
   m_Name: controllerTilt
   m_TagString: TvController
@@ -25044,12 +25045,31 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1646068567}
   m_LocalRotation: {x: -0, y: -0, z: -0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: -18.93, y: 3.55, z: 0}
+  m_LocalPosition: {x: -16.89, y: 6.22, z: 0}
   m_LocalScale: {x: 0.77400005, y: 0.706, z: 1}
   m_Children: []
   m_Father: {fileID: 972938877}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
+--- !u!95 &1646068571
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646068567}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5622f6dcfc8834ddd8ce21acc79a26c7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1663133856
 GameObject:
   m_ObjectHideFlags: 0
@@ -30911,7 +30931,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2059202008}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.66, y: 0.14, z: 0}
+  m_LocalPosition: {x: -1.83, y: -1.07, z: 0}
   m_LocalScale: {x: 1.984, y: 1.984, z: 1.984}
   m_Children: []
   m_Father: {fileID: 28440661}
