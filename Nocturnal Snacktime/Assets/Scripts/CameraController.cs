@@ -10,17 +10,6 @@ public class CameraController : MonoBehaviour
     private Vector3 targetPosition;
     public float moveSpeed;
 
-    void Awake()
-    {
-
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {

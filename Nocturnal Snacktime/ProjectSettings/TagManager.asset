@@ -15,6 +15,7 @@ TagManager:
   - LightSwitch
   - UI
   - FinishLevelPanel
+  - TvOnCollider
   layers:
   - Default
   - TransparentFX
