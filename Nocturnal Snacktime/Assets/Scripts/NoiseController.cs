@@ -11,8 +11,7 @@ public class NoiseController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        noisebar.value = noise;
-        InvokeRepeating("QuietDown", 2.0f, 2.0f);
+        noisebar.value = noise;       
     }
 
     // Update is called once per frame
@@ -22,12 +21,26 @@ public class NoiseController : MonoBehaviour
     }
 
     //Decrease noise over time
-    void QuietDown()
+    public void QuietDown()
     {
         if (noise > 0)
         {
-            noise -= 2.0f;
+            noise -= 5.0f;
             noisebar.value = noise;
         }
+    }
+    
+    //Any bumping into anything will generate noise. called in PlayerMovement on collision
+    public void MakeSomeNoise(float n)
+    {
+        noise += n;
+        noisebar.value = noise;
+    }
+
+    //Stepping will generate noise. stepping on carpet will generate less noise
+    public void StepNoise(float n)
+    {
+        noise += 0.05f - n;
+        noisebar.value = noise;
     }
 }

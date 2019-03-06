@@ -61,7 +61,6 @@ public class CameraController : MonoBehaviour
             float offsetY = Random.value * shakeAmount * 2 - shakeAmount;
             camPos.x += offsetX;
             camPos.y += offsetY;
-
             gameObject.transform.position = camPos;
         }
     }
