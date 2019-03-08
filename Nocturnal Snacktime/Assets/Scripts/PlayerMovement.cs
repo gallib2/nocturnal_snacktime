@@ -17,10 +17,14 @@ public class PlayerMovement : MonoBehaviour
     public Slider cookingSlider;
     public Canvas toggleableCanvas;
     public Canvas timedCanvas;
+    public AudioSource stepSource;
+    public BangNoises bn;
+    public Image redFlash;
 
     public float moveSpeed;
     public float diagonalMoveModifier;
-    public bool isRunning = false;
+    bool isMoving = false;
+    bool isRunning = false;
     private float currentSpeed;
 
     public float noiseInfluentRegular;
@@ -29,9 +33,6 @@ public class PlayerMovement : MonoBehaviour
     public float cook1 = 0;
     bool cooking1 = false;
     bool inKitchen = false;
-
-    bool food1 = false;
-    bool food2 = false;
 
     // Use this for initialization
     void Start()
@@ -42,6 +43,10 @@ public class PlayerMovement : MonoBehaviour
 
         noiseInfluentRegular = 10;
         noiseInfluentLight = 5;
+
+        var tempColor = redFlash.color;
+        tempColor.a = 0f; //1f makes it fully visible, 0f makes it fully transparent.
+        redFlash.color = tempColor;
     }
 
     // Update is called once per frame
@@ -50,11 +55,17 @@ public class PlayerMovement : MonoBehaviour
         //If moving, make stepping noises
         if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
-            GetComponent<AudioSource>().UnPause();
+          //  Debug.Log("Resume moving");
+            stepSource.UnPause();
+            CancelInvoke();
+            isMoving = true;
         }
         else
         {
-            GetComponent<AudioSource>().Pause();
+//            Debug.Log("Stopped moving");
+            stepSource.Pause();
+            InvokeRepeating("CallQuiet", 1.0f, 1.0f);
+            isMoving = false;
         }
     
         //If the player is holding down the Run button, he will run
@@ -109,8 +120,7 @@ public class PlayerMovement : MonoBehaviour
             //If player lets go of the cooking button and fails to stop around center
             else if ((cook1 < 3 || cook1 > 7) && (cooking1 == true))
             {
-                noiseController.noise += 30;
-                noiseController.noisebar.value = noiseController.noise;
+                noiseController.MakeSomeNoise(30);
                 cooking1 = false;
                 cook1 = 0;
                 hungerController.hungerbar.value = cook1;
@@ -118,7 +128,6 @@ public class PlayerMovement : MonoBehaviour
             //if player lets go of the cooking button and succeeds at stopping around center
             else if ((cook1 > 3 || cook1 < 7) && (cooking1 == true))
             {
-                food1 = true;
                 cooking1 = false;
                 Debug.Log("Cooked!");
             }
@@ -128,15 +137,39 @@ public class PlayerMovement : MonoBehaviour
         {
             toggleableCanvas.enabled = false;
         }
+    }
 
+    private void CallQuiet()
+    {
+        //Debug.Log("Stopped moving, quieting down");
+        noiseController.QuietDown();
+    }
+
+    IEnumerator Stepping(float n)
+    {
+        noiseController.StepNoise(n);
+        yield return new WaitForSeconds(0.5f);
+    }
+
+    //Screen flashes red (called on collision)
+    IEnumerator ScreenFlashRed()
+    {
+        Debug.Log("Should flash");
+        var tempColor = redFlash.color;
+        tempColor.a = 0.25f;
+        redFlash.color = tempColor;
+        yield return new WaitForSeconds(0.1f);
+        tempColor.a = 0f;
+        redFlash.color = tempColor;
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Obstacle" && OnTouchedObstacle != null)
         {
-            noiseController.noise += noiseInfluentRegular;
-            noiseController.noisebar.value = noiseController.noise;
+            noiseController.MakeSomeNoise(10);
+            bn.MakeSomeNoise();
+            StartCoroutine(ScreenFlashRed());
             OnTouchedObstacle();
         }
 
@@ -176,20 +209,26 @@ public class PlayerMovement : MonoBehaviour
             }
 
             Destroy(other.gameObject);
+
+             
         }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.tag == "Carpet" && isMoving == true)
+        {
+            StartCoroutine(Stepping(0.01f));
+        }
+
+        if (other.tag == "Floor" && isMoving == true)
+        {
+            StartCoroutine(Stepping(0));
+        }       
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // the obstacleLight is the obstacles that makes less noise
-        // for example: the carpets are 'ObstacleLight'.
-        if (other.tag == "ObstacleLight")
-        {
-            noiseController.noise += noiseInfluentLight;
-            noiseController.noisebar.value = noiseController.noise;
-
-        }
-
         if (other.tag == "Goal1")
         {
             inKitchen = true;

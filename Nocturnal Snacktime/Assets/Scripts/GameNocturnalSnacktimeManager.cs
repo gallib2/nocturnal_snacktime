@@ -8,22 +8,38 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
     public RoomLight roomLight;
     public Reciept recipe;
     public GameObject FinishLevelPanel;
+    private bool isGameRunning = true;
 
     void Awake()
     {
         // This will keep the panel: "FinishLevelPanels" alive when we restart the level
         GameObject obj = GameObject.FindGameObjectWithTag("UI");
         DontDestroyOnLoad(obj);
-        //GameObject obj2 = GameObject.FindGameObjectWithTag("MainCamera");
-        //DontDestroyOnLoad(obj2);
-        //GameObject obj3 = GameObject.FindGameObjectWithTag("Player");
-        //DontDestroyOnLoad(obj3);
     }
 
     private void Start()
     {
         recipe = recipe.GetComponent<Reciept>();
         roomLight = roomLight.GetComponent<RoomLight>();
+    }
+
+    private void Update()
+    {
+        bool toPauseGame = Input.GetKeyDown(KeyCode.P) && isGameRunning;
+        bool toResumeGame = Input.GetKeyDown(KeyCode.P) && !isGameRunning;
+
+        if (toPauseGame)
+        {
+            Time.timeScale = 0;
+            isGameRunning = false;
+            // SceneManager.LoadScene(1, LoadSceneMode.Additive);
+        }
+
+        if(toResumeGame)
+        {
+            Time.timeScale = 1;
+            isGameRunning = true;
+        }
     }
 
     private void OnEnable()
@@ -34,7 +50,7 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
         }
 
         PlayerMovement.OnArriveKitchen += CheckIfGameEnd;
-        SliderManager.OnGameOver += ReloadGameOverScreen;
+        SliderManager.OnGameOver += GameOver;
     }
 
     private void OnDisable()
@@ -45,22 +61,23 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
         }
 
         PlayerMovement.OnArriveKitchen -= CheckIfGameEnd;
-        SliderManager.OnGameOver -= ReloadGameOverScreen;
+        SliderManager.OnGameOver -= GameOver;
     }
 
     public void RestartGame()
     {
-        //FinishLevelPanel.SetActive(false);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void ReloadGameOverScreen()
+    public void GameOver()
     {
-        StartCoroutine(ReloadGameWithWaiting(2));
+        const int secondToWait = 2;
+
+        StartCoroutine(PresentGameOverMenuWithWaiting(secondToWait));
         roomLight.StartEndGameAnimation();
     }
 
-    IEnumerator ReloadGameWithWaiting(int seconds)
+    IEnumerator PresentGameOverMenuWithWaiting(int seconds)
     {
         yield return new WaitForSeconds(seconds);
         SceneManager.LoadScene(0);
@@ -70,7 +87,6 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
     public void CheckIfGameEnd()
     {
         Inventory inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
-        // recipe = recipe.GetComponent<Reciept>();
 
         // counter for the equal items that in the ingredient and the recipe
         int counter = 0;

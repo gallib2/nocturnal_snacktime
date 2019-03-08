@@ -4,19 +4,18 @@ using UnityEngine;
 
 public class BangNoises : MonoBehaviour {
 
-    public AudioSource _as;
+    public AudioSource bangSource;
     public AudioClip[] audioClipArray;
 
 
     void Awake()
     {
-        _as = GetComponent<AudioSource>();
+
     }
 	// Use this for initialization
 	void Start ()
     {
-        _as.clip = audioClipArray[Random.Range(0, audioClipArray.Length)];
-        _as.PlayOneShot(_as.clip);
+
     }
 	
 	// Update is called once per frame
@@ -24,4 +23,10 @@ public class BangNoises : MonoBehaviour {
     {
 		
 	}
+
+    public void MakeSomeNoise()
+    {
+        bangSource.clip = audioClipArray[Random.Range(0, audioClipArray.Length)];
+        bangSource.PlayOneShot(bangSource.clip);
+    }
 }

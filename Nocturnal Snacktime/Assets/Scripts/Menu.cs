@@ -13,6 +13,6 @@ public class Menu : MonoBehaviour
 
     public void RestartLevel()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 }

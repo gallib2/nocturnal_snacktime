@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/EndGameMenu.unity
     guid: acd5a4236c02a4118a53795b8fef29f6
   - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: b7db06b38347f4bc08a5c617123c70f0
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 7b8cc6a80fc9848cfbaedce323c5c564
   m_configObjects: {}

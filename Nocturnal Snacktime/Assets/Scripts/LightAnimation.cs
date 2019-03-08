@@ -27,7 +27,6 @@ public class LightAnimation : MonoBehaviour
 
     private void CloseTV()
     {
-        Debug.Log("enter function CloseTV....");
         animator.SetBool("IsTvOn", false);
         Destroy(gameObject);
     }

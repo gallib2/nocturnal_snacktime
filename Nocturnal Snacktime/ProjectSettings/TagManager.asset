@@ -9,12 +9,13 @@ TagManager:
   - Cherry
   - MenuItem
   - Donut
-  - ObstacleLight
   - Car
   - TvController
   - LightSwitch
   - UI
   - FinishLevelPanel
+  - Carpet
+  - Floor
   - TvOnCollider
   layers:
   - Default
