@@ -32,6 +32,7 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
         {
             Time.timeScale = 0;
             isGameRunning = false;
+            // SceneManager.LoadScene(1, LoadSceneMode.Additive);
         }
 
         if(toResumeGame)

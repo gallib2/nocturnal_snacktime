@@ -80,7 +80,7 @@
     <Compile Include="Assets\Scripts\Slot.cs" />
     <Compile Include="Assets\Scripts\Snack.cs" />
     <Compile Include="Assets\Scripts\Spawn.cs" />
-    <Compile Include="Assets\Volume.cs" />
+    <Compile Include="Assets\Scripts\Volume.cs" />
     <None Include="Assets\Ultimate Game Music Collection\_README.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>/Users/gallib/Documents/Shenkar/Unity/nocturnal_snacktime/Nocturnal Snacktime/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
