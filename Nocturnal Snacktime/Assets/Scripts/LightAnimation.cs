@@ -10,27 +10,30 @@ public class LightAnimation : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        animator.SetBool("IsTvOn", false);
     }
 
     private void OnEnable()
     {
         PlayerMovement.OnTouchedTvController += CloseTV;
+        PlayerMovement.OnTurnTvOn += OpenTv;
     }
 
     private void OnDisable()
     {
         PlayerMovement.OnTouchedTvController -= CloseTV;
+        PlayerMovement.OnTurnTvOn -= OpenTv;
     }
 
     private void CloseTV()
     {
         animator.SetBool("IsTvOn", false);
         Destroy(gameObject);
+    }
+
+    private void OpenTv()
+    {
+        Debug.Log("enter function OpenTv....");
+        animator.SetBool("IsTvOn", true);
     }
 }

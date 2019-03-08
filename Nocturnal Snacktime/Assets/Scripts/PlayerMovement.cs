@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public static event Action OnArriveKitchen;
     public static event Action OnTouchedTvController;
+    public static event Action OnTurnTvOn;
     public static event Action OnTouchLightSwitch;
     public static event Action OnTouchedObstacle;
 
@@ -54,14 +55,14 @@ public class PlayerMovement : MonoBehaviour
         //If moving, make stepping noises
         if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
-            Debug.Log("Resume moving");
+          //  Debug.Log("Resume moving");
             stepSource.UnPause();
             CancelInvoke();
             isMoving = true;
         }
         else
         {
-            Debug.Log("Stopped moving");
+//            Debug.Log("Stopped moving");
             stepSource.Pause();
             InvokeRepeating("CallQuiet", 1.0f, 1.0f);
             isMoving = false;
@@ -140,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CallQuiet()
     {
-        Debug.Log("Stopped moving, quieting down");
+        //Debug.Log("Stopped moving, quieting down");
         noiseController.QuietDown();
     }
 
@@ -226,11 +227,19 @@ public class PlayerMovement : MonoBehaviour
         }       
     }
 
-    private void OnTriggerEnter2D(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Goal1")
         {
             inKitchen = true;
+        }
+
+        if (other.tag == "TvOnCollider")
+        {
+            Debug.Log("enter trigger open tv....");
+            OnTurnTvOn?.Invoke();
+
+            Destroy(other);
         }
     }
 
