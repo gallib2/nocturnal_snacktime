@@ -1,45 +1,73 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public Slider noisebar;
-    public Slider hungerbar;
+    public static event Action OnArriveKitchen;
+    public static event Action OnTouchedTvController;
+    public static event Action OnTurnTvOn;
+    public static event Action OnTouchLightSwitch;
+    public static event Action OnTouchedObstacle;
+
+    public HungerController hungerController;
+    public NoiseController noiseController;
+    public Slider cookingSlider;
+    public Canvas toggleableCanvas;
+    public Canvas timedCanvas;
+    public AudioSource stepSource;
+    public BangNoises bn;
+    public Image redFlash;
+
     public float moveSpeed;
     public float diagonalMoveModifier;
-    public bool isRunning = false;
+    bool isMoving = false;
+    bool isRunning = false;
     private float currentSpeed;
-    public float noise = 0;
-    public float hunger = 0;
+
+    public float noiseInfluentRegular;
+    public float noiseInfluentLight;
 
     public float cook1 = 0;
     bool cooking1 = false;
-
-    bool food1 = false;
-    bool food2 = false;
+    bool inKitchen = false;
 
     // Use this for initialization
     void Start()
     {
-        noisebar.value = noise;
-        hungerbar.value = hunger;
-        InvokeRepeating("GetHungry", 2.0f, 2.0f);
-        InvokeRepeating("QuietDown", 2.0f, 2.0f);
+        Destroy(timedCanvas, 10.0f);
+        hungerController = hungerController.GetComponent<HungerController>();
+        noiseController = noiseController.GetComponent<NoiseController>();
+
+        noiseInfluentRegular = 10;
+        noiseInfluentLight = 5;
+
+        var tempColor = redFlash.color;
+        tempColor.a = 0f; //1f makes it fully visible, 0f makes it fully transparent.
+        redFlash.color = tempColor;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Lose the game
-        if (noise >= 50 || hunger >= 50)
+        //If moving, make stepping noises
+        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
-            SceneManager.LoadScene(0);
+          //  Debug.Log("Resume moving");
+            stepSource.UnPause();
+            CancelInvoke();
+            isMoving = true;
         }
-
-
+        else
+        {
+//            Debug.Log("Stopped moving");
+            stepSource.Pause();
+            InvokeRepeating("CallQuiet", 1.0f, 1.0f);
+            isMoving = false;
+        }
+    
         //If the player is holding down the Run button, he will run
         if (Input.GetButtonDown("Run"))
         {
@@ -76,58 +104,150 @@ public class PlayerMovement : MonoBehaviour
             currentSpeed = moveSpeed;
         }
 
+        //If player is in the kitchen
+        if (inKitchen == true)
+        {
+            //Cooking slider appears
+            toggleableCanvas.enabled = true;
 
-        //If you hold the interact button to cook (need to add a condition where you are close to the object being cooked)
-        if (Input.GetButton("Interact"))
-        {
-            cook1 = Mathf.PingPong(Time.time * 7, hungerbar.maxValue);
-            hungerbar.value = cook1;
-            cooking1 = true;
+            //If player presses the cooking button
+            if (Input.GetButton("Interact"))
+            {
+                cook1 = Mathf.PingPong(Time.time * 7, cookingSlider.maxValue);
+                cookingSlider.value = cook1;
+                cooking1 = true;
+            }
+            //If player lets go of the cooking button and fails to stop around center
+            else if ((cook1 < 3 || cook1 > 7) && (cooking1 == true))
+            {
+                noiseController.MakeSomeNoise(30);
+                cooking1 = false;
+                cook1 = 0;
+                hungerController.hungerbar.value = cook1;
+            }
+            //if player lets go of the cooking button and succeeds at stopping around center
+            else if ((cook1 > 3 || cook1 < 7) && (cooking1 == true))
+            {
+                cooking1 = false;
+                Debug.Log("Cooked!");
+            }
         }
-        else if ((cook1 < 3 || cook1 > 7) && (cooking1 == true))
+        //If the player is not in the kitchen, the cooking slider is invisible
+        else
         {
-            noise += 30;
-            noisebar.value = noise;
-            cooking1 = false;
-            cook1 = 0;
-            hungerbar.value = cook1;
+            toggleableCanvas.enabled = false;
         }
-        else if ((cook1 > 3 || cook1 < 7) && (cooking1 == true))
-        {
-            food1 = true;
-            cooking1 = false;
-            Debug.Log("Cooked!");
-        }
+    }
+
+    private void CallQuiet()
+    {
+        //Debug.Log("Stopped moving, quieting down");
+        noiseController.QuietDown();
+    }
+
+    IEnumerator Stepping(float n)
+    {
+        noiseController.StepNoise(n);
+        yield return new WaitForSeconds(0.5f);
+    }
+
+    //Screen flashes red (called on collision)
+    IEnumerator ScreenFlashRed()
+    {
+        Debug.Log("Should flash");
+        var tempColor = redFlash.color;
+        tempColor.a = 0.25f;
+        redFlash.color = tempColor;
+        yield return new WaitForSeconds(0.1f);
+        tempColor.a = 0f;
+        redFlash.color = tempColor;
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Obstacle")
+        if (other.gameObject.tag == "Obstacle" && OnTouchedObstacle != null)
         {
-            noise += 10;
-            noisebar.value = noise;
+            noiseController.MakeSomeNoise(10);
+            bn.MakeSomeNoise();
+            StartCoroutine(ScreenFlashRed());
+            OnTouchedObstacle();
         }
 
-        if (other.gameObject.tag == "Finish")
+        if (other.gameObject.tag == "Goal1")
         {
-            SceneManager.LoadScene(0);
+            Debug.Log("enter goal1");
+            if (OnArriveKitchen != null)
+            {
+                Debug.Log("enter goal");
+                OnArriveKitchen();
+            }
+        }
+
+        // if the player touch the TV controller
+        if(other.gameObject.tag == "TvController")
+        {
+            // notify that the player touch the controller
+            // the LightAnimation is listening to this event 
+            // when we call this function the LightAnimation will 'close' the TV
+            if(OnTouchedTvController != null)
+            {
+                OnTouchedTvController();
+            }
+
+            // destroy the TV controller
+            Destroy(other.gameObject);
+        }
+
+        // notify that the player touch the light switch
+        // the Game Manager is listening to this event 
+        // when we call this function the Game Manager will 'turn the light on'
+        if (other.gameObject.tag == "LightSwitch")
+        {
+            if (OnTouchLightSwitch != null)
+            {
+                OnTouchLightSwitch();
+            }
+
+            Destroy(other.gameObject);
+
+             
         }
     }
 
-    //Increase hunger over time
-    //void GetHungry()
-    //{
-    //    hunger += 5;
-    //    hungerbar.value = hunger;
-    //}
-
-    //Decrease noise over time
-    void QuietDown()
+    private void OnTriggerStay2D(Collider2D other)
     {
-        if (noise > 0)
+        if (other.tag == "Carpet" && isMoving == true)
         {
-            noise -= 2.0f;
-            noisebar.value = noise;
+            StartCoroutine(Stepping(0.01f));
+        }
+
+        if (other.tag == "Floor" && isMoving == true)
+        {
+            StartCoroutine(Stepping(0));
+        }       
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Goal1")
+        {
+            inKitchen = true;
+        }
+
+        if (other.tag == "TvOnCollider")
+        {
+            Debug.Log("enter trigger open tv....");
+            OnTurnTvOn?.Invoke();
+
+            Destroy(other);
         }
     }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "Goal1")
+        {
+            inKitchen = false;
+        }
+    }    
 }

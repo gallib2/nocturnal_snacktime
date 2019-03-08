@@ -6,6 +6,17 @@ TagManager:
   tags:
   - Obstacle
   - Goal1
+  - Cherry
+  - MenuItem
+  - Donut
+  - Car
+  - TvController
+  - LightSwitch
+  - UI
+  - FinishLevelPanel
+  - Carpet
+  - Floor
+  - TvOnCollider
   layers:
   - Default
   - TransparentFX
@@ -46,6 +57,18 @@ TagManager:
   - name: Ground
     uniqueID: 1593865631
     locked: 0
+  - name: onGround
+    uniqueID: 2537767073
+    locked: 0
   - name: Player
     uniqueID: 543596419
+    locked: 0
+  - name: food
+    uniqueID: 2416724667
+    locked: 0
+  - name: donutsSprinkles
+    uniqueID: 3295996981
+    locked: 0
+  - name: UI
+    uniqueID: 1099754371
     locked: 0
