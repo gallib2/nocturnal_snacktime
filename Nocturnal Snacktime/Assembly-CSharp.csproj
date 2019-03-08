@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\HungerController.cs" />
     <Compile Include="Assets\Scripts\Inventory.cs" />
     <Compile Include="Assets\Scripts\LightAnimation.cs" />
+    <Compile Include="Assets\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\MenuBackpack.cs" />
     <Compile Include="Assets\Scripts\NoiseController.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Assets\Scripts\Slot.cs" />
     <Compile Include="Assets\Scripts\Snack.cs" />
     <Compile Include="Assets\Scripts\Spawn.cs" />
+    <Compile Include="Assets\Volume.cs" />
     <None Include="Assets\Ultimate Game Music Collection\_README.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>/Users/gallib/Documents/Shenkar/Unity/nocturnal_snacktime/Nocturnal Snacktime/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>

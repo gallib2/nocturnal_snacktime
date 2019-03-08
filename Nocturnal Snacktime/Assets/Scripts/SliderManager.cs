@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class SliderManager : MonoBehaviour
 {
-    public static event Action OnRestartGame;
+    public static event Action OnGameOver;
 
     public HungerController hungerController;
     public NoiseController noiseController;
@@ -24,9 +24,9 @@ public class SliderManager : MonoBehaviour
         //Lose the game
         if (noiseController.noise >= 50 || hungerController.hunger >= 50)
         {
-            if(OnRestartGame != null)
+            if(OnGameOver != null)
             {
-                OnRestartGame();
+                OnGameOver();
             }
            // SceneManager.LoadScene(0);
         }
