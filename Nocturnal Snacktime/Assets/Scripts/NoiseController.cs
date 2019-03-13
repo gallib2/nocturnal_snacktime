@@ -7,6 +7,7 @@ public class NoiseController : MonoBehaviour
 {
     public Slider noisebar;
     public float noise = 0;
+    public bool IsTvOn = false;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +24,7 @@ public class NoiseController : MonoBehaviour
     //Decrease noise over time
     public void QuietDown()
     {
-        if (noise > 0)
+        if (noise > 0 && IsTvOn == false)
         {
             noise -= 5.0f;
             noisebar.value = noise;
@@ -43,4 +44,12 @@ public class NoiseController : MonoBehaviour
         noise += 0.05f - n;
         noisebar.value = noise;
     }
+
+    //Called in playermovement, repeats until controller is picked up. also prevent quieting down
+    public void TVnoise()
+    {
+        IsTvOn = true;
+        noise += 2f;
+        noisebar.value = noise;
+    } 
 }

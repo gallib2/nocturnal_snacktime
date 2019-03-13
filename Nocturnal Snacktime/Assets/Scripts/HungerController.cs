@@ -20,13 +20,23 @@ public class HungerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //Make sure you dont hit negative hunger by eating snack
+        if (hunger < 0)
+        {
+            hunger = 0;
+        }
     }
 
     // Increase hunger over time
     void GetHungry()
     {
-        hunger += 2;
+        hunger += 5;
+        hungerbar.value = hunger;
+    }
+
+    public void EatSnack()
+    {
+        hunger -= 20;
         hungerbar.value = hunger;
     }
 

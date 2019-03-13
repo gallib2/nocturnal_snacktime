@@ -44,9 +44,7 @@ public class PlayerMovement : MonoBehaviour
         noiseInfluentRegular = 10;
         noiseInfluentLight = 5;
 
-        var tempColor = redFlash.color;
-        tempColor.a = 0f; //1f makes it fully visible, 0f makes it fully transparent.
-        redFlash.color = tempColor;
+        redFlash.enabled = false;
     }
 
     // Update is called once per frame
@@ -155,12 +153,9 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator ScreenFlashRed()
     {
         Debug.Log("Should flash");
-        var tempColor = redFlash.color;
-        tempColor.a = 0.25f;
-        redFlash.color = tempColor;
+        redFlash.enabled = true;
         yield return new WaitForSeconds(0.1f);
-        tempColor.a = 0f;
-        redFlash.color = tempColor;
+        redFlash.enabled = false;
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -183,6 +178,12 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        if (other.gameObject.tag == "Snack")
+        {
+            hungerController.EatSnack();
+            Destroy(other.gameObject);
+        }
+
         // if the player touch the TV controller
         if(other.gameObject.tag == "TvController")
         {
@@ -195,6 +196,8 @@ public class PlayerMovement : MonoBehaviour
             }
 
             // destroy the TV controller
+            noiseController.CancelInvoke("TVnoise");
+            noiseController.IsTvOn = false;
             Destroy(other.gameObject);
         }
 
@@ -216,10 +219,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.tag == "Carpet" && isMoving == true)
-        {
-            StartCoroutine(Stepping(0.01f));
-        }
+        //if (other.tag == "Carpet" && isMoving == true)
+        //{
+        //    StartCoroutine(Stepping(0.01f));
+        //}
 
         if (other.tag == "Floor" && isMoving == true)
         {
@@ -238,7 +241,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("enter trigger open tv....");
             OnTurnTvOn?.Invoke();
-
+            noiseController.InvokeRepeating("TVnoise", 1f, 2f);
             Destroy(other);
         }
     }
