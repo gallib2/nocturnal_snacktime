@@ -49,6 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemButton: {fileID: 643427190782823485, guid: a76399eebf7d34143b171331de969406,
     type: 3}
+  pickupEffect: {fileID: 1498545114174289165, guid: 416a37cd331b24165838e8f017b90c80,
+    type: 3}
 --- !u!58 &5630235079974808038
 CircleCollider2D:
   m_ObjectHideFlags: 0

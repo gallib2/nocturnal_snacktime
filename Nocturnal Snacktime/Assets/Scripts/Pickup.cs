@@ -7,6 +7,8 @@ public class Pickup : MonoBehaviour
     private Inventory inventory;
     public GameObject itemButton;
 
+    public GameObject pickupEffect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +33,7 @@ public class Pickup : MonoBehaviour
                     inventory.isFull[i] = true;
                     Instantiate(itemButton, inventory.slots[i].transform, false);
                     inventory.ingredients[i] = itemButton;
+                    Instantiate(pickupEffect, gameObject.transform.position, gameObject.transform.rotation);
                     Destroy(gameObject);
                     break;
                 }

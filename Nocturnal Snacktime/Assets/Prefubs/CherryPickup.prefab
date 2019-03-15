@@ -127,6 +127,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemButton: {fileID: 1212302780680712175, guid: be7d96084b61d4188ad654cdbb971dbd,
     type: 3}
+  pickupEffect: {fileID: 1498545114174289165, guid: 416a37cd331b24165838e8f017b90c80,
+    type: 3}
 --- !u!58 &2409437033826536869
 CircleCollider2D:
   m_ObjectHideFlags: 0
