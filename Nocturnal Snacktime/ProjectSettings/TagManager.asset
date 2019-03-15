@@ -18,6 +18,7 @@ TagManager:
   - Floor
   - TvOnCollider
   - Snack
+  - OutOfBedRoom
   layers:
   - Default
   - TransparentFX

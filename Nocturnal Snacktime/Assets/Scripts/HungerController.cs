@@ -14,7 +14,7 @@ public class HungerController : MonoBehaviour
     void Start()
     {
         hungerbar.value = hunger;
-        InvokeRepeating("GetHungry", 2.0f, 2.0f);
+        //InvokeRepeating("GetHungry", 2.0f, 2.0f);
     }
 
     // Update is called once per frame
@@ -25,6 +25,21 @@ public class HungerController : MonoBehaviour
         {
             hunger = 0;
         }
+    }
+
+    private void OnEnable()
+    {
+        PlayerMovement.OnPlayerOutOfBedRoom += StartHungerBar;
+    }
+
+    private void OnDisable()
+    {
+        PlayerMovement.OnPlayerOutOfBedRoom -= StartHungerBar;
+    }
+
+    void StartHungerBar()
+    {
+        InvokeRepeating("GetHungry", 2.0f, 2.0f);
     }
 
     // Increase hunger over time
