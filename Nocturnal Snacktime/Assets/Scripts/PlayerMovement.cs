@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     public BangNoises bn;
     public Image redFlash;
 
+    public GameObject playerBubble;
+
     public float moveSpeed;
     public float diagonalMoveModifier;
     bool isMoving = false;
@@ -243,6 +245,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.tag == "OutOfBedRoom")
         {
             OnPlayerOutOfBedRoom?.Invoke();
+            playerBubble.SetActive(false);
         }
     }
 
