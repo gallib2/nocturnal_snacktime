@@ -116,6 +116,7 @@
     <Compile Include="Assets\Scripts\BangNoises.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\CarAnimation.cs" />
+    <Compile Include="Assets\Scripts\DestroyOverTime.cs" />
     <Compile Include="Assets\Scripts\GameNocturnalSnacktimeManager.cs" />
     <Compile Include="Assets\Scripts\HungerController.cs" />
     <Compile Include="Assets\Scripts\Inventory.cs" />

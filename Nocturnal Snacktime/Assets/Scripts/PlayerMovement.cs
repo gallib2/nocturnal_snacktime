@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     public Image redFlash;
 
     public GameObject playerBubble;
+    public GameObject pickupEffect;
 
     public float moveSpeed;
     public float diagonalMoveModifier;
@@ -184,6 +185,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.tag == "Snack")
         {
             hungerController.EatSnack();
+            Instantiate(pickupEffect, other.gameObject.transform.position, other.gameObject.transform.rotation);
             Destroy(other.gameObject);
         }
 
