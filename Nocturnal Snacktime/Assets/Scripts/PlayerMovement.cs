@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public static event Action OnTurnTvOn;
     public static event Action OnTouchLightSwitch;
     public static event Action OnTouchedObstacle;
+    public static event Action OnPlayerOutOfBedRoom;
 
     public HungerController hungerController;
     public NoiseController noiseController;
@@ -20,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource stepSource;
     public BangNoises bn;
     public Image redFlash;
+
+    public GameObject playerBubble;
+    public GameObject pickupEffect;
 
     public float moveSpeed;
     public float diagonalMoveModifier;
@@ -181,6 +185,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.tag == "Snack")
         {
             hungerController.EatSnack();
+            Instantiate(pickupEffect, other.gameObject.transform.position, other.gameObject.transform.rotation);
             Destroy(other.gameObject);
         }
 
@@ -206,14 +211,9 @@ public class PlayerMovement : MonoBehaviour
         // when we call this function the Game Manager will 'turn the light on'
         if (other.gameObject.tag == "LightSwitch")
         {
-            if (OnTouchLightSwitch != null)
-            {
-                OnTouchLightSwitch();
-            }
+            OnTouchLightSwitch?.Invoke();
 
             Destroy(other.gameObject);
-
-             
         }
     }
 
@@ -239,10 +239,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (other.tag == "TvOnCollider")
         {
-            Debug.Log("enter trigger open tv....");
             OnTurnTvOn?.Invoke();
             noiseController.InvokeRepeating("TVnoise", 1f, 2f);
             Destroy(other);
+        }
+
+        if (other.tag == "OutOfBedRoom")
+        {
+            OnPlayerOutOfBedRoom?.Invoke();
+            playerBubble.SetActive(false);
         }
     }
 

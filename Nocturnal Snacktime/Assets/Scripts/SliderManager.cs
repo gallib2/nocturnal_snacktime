@@ -24,11 +24,7 @@ public class SliderManager : MonoBehaviour
         //Lose the game
         if (noiseController.noise >= 50 || hungerController.hunger >= 50)
         {
-            if(OnGameOver != null)
-            {
-                OnGameOver();
-            }
-           // SceneManager.LoadScene(0);
+            OnGameOver?.Invoke();
         }
     }
 }
