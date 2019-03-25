@@ -15,12 +15,12 @@ public class PlayerMovement : MonoBehaviour
 
     public HungerController hungerController;
     public NoiseController noiseController;
-    public Slider cookingSlider;
     public Canvas toggleableCanvas;
-    public Canvas timedCanvas;
     public AudioSource stepSource;
     public BangNoises bn;
     public Image redFlash;
+    public GameObject HungerUI;
+    public GameObject NoiseUI;
 
     public GameObject playerBubble;
     public GameObject pickupEffect;
@@ -35,13 +35,11 @@ public class PlayerMovement : MonoBehaviour
     public float noiseInfluentLight;
 
     public float cook1 = 0;
-    bool cooking1 = false;
     bool inKitchen = false;
 
     // Use this for initialization
     void Start()
     {
-        Destroy(timedCanvas, 10.0f);
         hungerController = hungerController.GetComponent<HungerController>();
         noiseController = noiseController.GetComponent<NoiseController>();
 
@@ -104,40 +102,6 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             currentSpeed = moveSpeed;
-        }
-
-        //If player is in the kitchen
-        if (inKitchen == true)
-        {
-            //Cooking slider appears
-            toggleableCanvas.enabled = true;
-
-            //If player presses the cooking button
-            if (Input.GetButton("Interact"))
-            {
-                cook1 = Mathf.PingPong(Time.time * 7, cookingSlider.maxValue);
-                cookingSlider.value = cook1;
-                cooking1 = true;
-            }
-            //If player lets go of the cooking button and fails to stop around center
-            else if ((cook1 < 3 || cook1 > 7) && (cooking1 == true))
-            {
-                noiseController.MakeSomeNoise(30);
-                cooking1 = false;
-                cook1 = 0;
-                hungerController.hungerbar.value = cook1;
-            }
-            //if player lets go of the cooking button and succeeds at stopping around center
-            else if ((cook1 > 3 || cook1 < 7) && (cooking1 == true))
-            {
-                cooking1 = false;
-                Debug.Log("Cooked!");
-            }
-        }
-        //If the player is not in the kitchen, the cooking slider is invisible
-        else
-        {
-            toggleableCanvas.enabled = false;
         }
     }
 
@@ -248,6 +212,8 @@ public class PlayerMovement : MonoBehaviour
         {
             OnPlayerOutOfBedRoom?.Invoke();
             playerBubble.SetActive(false);
+            HungerUI.SetActive(true);
+            NoiseUI.SetActive(true);
         }
     }
 

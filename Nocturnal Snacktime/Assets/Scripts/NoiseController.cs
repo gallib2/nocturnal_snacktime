@@ -6,19 +6,41 @@ using UnityEngine.UI;
 public class NoiseController : MonoBehaviour
 {
     public Slider noisebar;
+    public Image filling;
     public float noise = 0;
     public bool IsTvOn = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        noisebar.value = noise;       
+        noisebar.value = noise;
+        filling.color = Color.red;
+        InvokeRepeating("FlashingBar", 1.0f, 0.03f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    private void FlashingBar()
+    {
+        if (noise >= 35)
+        {
+            if (filling.color == Color.red)
+            {
+                filling.color = Color.white;
+            }
+            else
+            {
+                filling.color = Color.red;
+            }
+        }
+        else
+        {
+            filling.color = Color.red;
+        }
     }
 
     //Decrease noise over time
@@ -30,7 +52,7 @@ public class NoiseController : MonoBehaviour
             noisebar.value = noise;
         }
     }
-    
+
     //Any bumping into anything will generate noise. called in PlayerMovement on collision
     public void MakeSomeNoise(float n)
     {
@@ -51,5 +73,5 @@ public class NoiseController : MonoBehaviour
         IsTvOn = true;
         noise += 2f;
         noisebar.value = noise;
-    } 
+    }
 }
