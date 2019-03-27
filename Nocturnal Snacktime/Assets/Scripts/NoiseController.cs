@@ -9,6 +9,7 @@ public class NoiseController : MonoBehaviour
     public Image filling;
     public float noise = 0;
     public bool IsTvOn = false;
+    public GameObject StopSign;
 
     // Start is called before the first frame update
     void Start()
@@ -31,15 +32,18 @@ public class NoiseController : MonoBehaviour
             if (filling.color == Color.red)
             {
                 filling.color = Color.white;
+                StopSign.SetActive(true);
             }
             else
             {
                 filling.color = Color.red;
+                StopSign.SetActive(true);
             }
         }
         else
         {
             filling.color = Color.red;
+            StopSign.SetActive(false);
         }
     }
 
