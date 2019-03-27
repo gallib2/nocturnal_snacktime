@@ -31,6 +31,9 @@ public class RoomLight : MonoBehaviour
 
     public void StartEndGameAnimation()
     {
-        animator.SetBool("isDead", true);
+        if(animator != null)
+        {
+            animator.SetBool("isDead", true);
+        }
     }
 }
