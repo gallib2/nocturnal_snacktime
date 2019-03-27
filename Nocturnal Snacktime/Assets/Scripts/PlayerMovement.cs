@@ -43,6 +43,9 @@ public class PlayerMovement : MonoBehaviour
         hungerController = hungerController.GetComponent<HungerController>();
         noiseController = noiseController.GetComponent<NoiseController>();
 
+        HungerUI = GetComponentInChildren<Slider>().gameObject;
+        NoiseUI = GetComponentInChildren<Slider>().gameObject;
+
         noiseInfluentRegular = 10;
         noiseInfluentLight = 5;
 
