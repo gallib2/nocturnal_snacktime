@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5630235079974808032}
   - component: {fileID: 5630235079974808039}
   - component: {fileID: 5630235079974808038}
+  - component: {fileID: 3526089435029940840}
   m_Layer: 0
   m_Name: DonutsPickup
   m_TagString: Untagged
@@ -48,6 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemButton: {fileID: 643427190782823485, guid: a76399eebf7d34143b171331de969406,
     type: 3}
+  pickupEffect: {fileID: 1498545114174289165, guid: 416a37cd331b24165838e8f017b90c80,
+    type: 3}
 --- !u!58 &5630235079974808038
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -64,6 +67,25 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.0000005790794}
   serializedVersion: 2
   m_Radius: 1.1708801
+--- !u!95 &3526089435029940840
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5630235079974808033}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a70b0c6c55e5e4c00b788c06b67f63d3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5630235080767103045
 GameObject:
   m_ObjectHideFlags: 0

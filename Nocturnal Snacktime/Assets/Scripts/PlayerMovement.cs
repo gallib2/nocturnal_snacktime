@@ -11,15 +11,19 @@ public class PlayerMovement : MonoBehaviour
     public static event Action OnTurnTvOn;
     public static event Action OnTouchLightSwitch;
     public static event Action OnTouchedObstacle;
+    public static event Action OnPlayerOutOfBedRoom;
 
     public HungerController hungerController;
     public NoiseController noiseController;
-    public Slider cookingSlider;
     public Canvas toggleableCanvas;
-    public Canvas timedCanvas;
     public AudioSource stepSource;
     public BangNoises bn;
     public Image redFlash;
+    public GameObject HungerUI;
+    public GameObject NoiseUI;
+
+    public GameObject playerBubble;
+    public GameObject pickupEffect;
 
     public float moveSpeed;
     public float diagonalMoveModifier;
@@ -31,22 +35,18 @@ public class PlayerMovement : MonoBehaviour
     public float noiseInfluentLight;
 
     public float cook1 = 0;
-    bool cooking1 = false;
     bool inKitchen = false;
 
     // Use this for initialization
     void Start()
     {
-        Destroy(timedCanvas, 10.0f);
         hungerController = hungerController.GetComponent<HungerController>();
         noiseController = noiseController.GetComponent<NoiseController>();
 
         noiseInfluentRegular = 10;
         noiseInfluentLight = 5;
 
-        var tempColor = redFlash.color;
-        tempColor.a = 0f; //1f makes it fully visible, 0f makes it fully transparent.
-        redFlash.color = tempColor;
+        redFlash.enabled = false;
     }
 
     // Update is called once per frame
@@ -103,40 +103,6 @@ public class PlayerMovement : MonoBehaviour
         {
             currentSpeed = moveSpeed;
         }
-
-        //If player is in the kitchen
-        if (inKitchen == true)
-        {
-            //Cooking slider appears
-            toggleableCanvas.enabled = true;
-
-            //If player presses the cooking button
-            if (Input.GetButton("Interact"))
-            {
-                cook1 = Mathf.PingPong(Time.time * 7, cookingSlider.maxValue);
-                cookingSlider.value = cook1;
-                cooking1 = true;
-            }
-            //If player lets go of the cooking button and fails to stop around center
-            else if ((cook1 < 3 || cook1 > 7) && (cooking1 == true))
-            {
-                noiseController.MakeSomeNoise(30);
-                cooking1 = false;
-                cook1 = 0;
-                hungerController.hungerbar.value = cook1;
-            }
-            //if player lets go of the cooking button and succeeds at stopping around center
-            else if ((cook1 > 3 || cook1 < 7) && (cooking1 == true))
-            {
-                cooking1 = false;
-                Debug.Log("Cooked!");
-            }
-        }
-        //If the player is not in the kitchen, the cooking slider is invisible
-        else
-        {
-            toggleableCanvas.enabled = false;
-        }
     }
 
     private void CallQuiet()
@@ -155,12 +121,9 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator ScreenFlashRed()
     {
         Debug.Log("Should flash");
-        var tempColor = redFlash.color;
-        tempColor.a = 0.25f;
-        redFlash.color = tempColor;
+        redFlash.enabled = true;
         yield return new WaitForSeconds(0.1f);
-        tempColor.a = 0f;
-        redFlash.color = tempColor;
+        redFlash.enabled = false;
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -183,6 +146,13 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        if (other.gameObject.tag == "Snack")
+        {
+            hungerController.EatSnack();
+            Instantiate(pickupEffect, other.gameObject.transform.position, other.gameObject.transform.rotation);
+            Destroy(other.gameObject);
+        }
+
         // if the player touch the TV controller
         if(other.gameObject.tag == "TvController")
         {
@@ -195,6 +165,8 @@ public class PlayerMovement : MonoBehaviour
             }
 
             // destroy the TV controller
+            noiseController.CancelInvoke("TVnoise");
+            noiseController.IsTvOn = false;
             Destroy(other.gameObject);
         }
 
@@ -203,23 +175,18 @@ public class PlayerMovement : MonoBehaviour
         // when we call this function the Game Manager will 'turn the light on'
         if (other.gameObject.tag == "LightSwitch")
         {
-            if (OnTouchLightSwitch != null)
-            {
-                OnTouchLightSwitch();
-            }
+            OnTouchLightSwitch?.Invoke();
 
             Destroy(other.gameObject);
-
-             
         }
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.tag == "Carpet" && isMoving == true)
-        {
-            StartCoroutine(Stepping(0.01f));
-        }
+        //if (other.tag == "Carpet" && isMoving == true)
+        //{
+        //    StartCoroutine(Stepping(0.01f));
+        //}
 
         if (other.tag == "Floor" && isMoving == true)
         {
@@ -236,10 +203,17 @@ public class PlayerMovement : MonoBehaviour
 
         if (other.tag == "TvOnCollider")
         {
-            Debug.Log("enter trigger open tv....");
             OnTurnTvOn?.Invoke();
-
+            noiseController.InvokeRepeating("TVnoise", 1f, 2f);
             Destroy(other);
+        }
+
+        if (other.tag == "OutOfBedRoom")
+        {
+            OnPlayerOutOfBedRoom?.Invoke();
+            playerBubble.SetActive(false);
+            HungerUI.SetActive(true);
+            NoiseUI.SetActive(true);
         }
     }
 

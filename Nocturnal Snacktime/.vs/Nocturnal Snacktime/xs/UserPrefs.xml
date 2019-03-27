@@ -1,18 +1,24 @@
 ﻿<Properties StartupConfiguration="{164E80C8-B617-F907-3008-946FFE2DE603}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Volume.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/DestroyOverTime.cs">
     <Files>
       <File FileName="Assets/Scripts/MenuBackpack.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Reciept.cs" Line="17" Column="1" />
-      <File FileName="Assets/Scripts/PlayerMovement.cs" Line="20" Column="34" />
-      <File FileName="Assets/Scripts/GameNocturnalSnacktimeManager.cs" Line="35" Column="16" />
-      <File FileName="Assets/Scripts/SliderManager.cs" Line="11" Column="24" />
-      <File FileName="Assets/Scripts/RoomLight.cs" Line="13" Column="5" />
-      <File FileName="Assets/Scripts/CameraController.cs" Line="11" Column="28" />
-      <File FileName="Assets/Scripts/CarAnimation.cs" Line="12" Column="27" />
-      <File FileName="Assets/Scripts/LightAnimation.cs" Line="35" Column="6" />
+      <File FileName="Assets/Scripts/Reciept.cs" Line="10" Column="33" />
+      <File FileName="Assets/Scripts/PlayerMovement.cs" Line="31" Column="23" />
+      <File FileName="Assets/Scripts/GameNocturnalSnacktimeManager.cs" Line="70" Column="22" />
+      <File FileName="Assets/Scripts/SliderManager.cs" Line="16" Column="6" />
+      <File FileName="Assets/Scripts/RoomLight.cs" Line="13" Column="1" />
+      <File FileName="Assets/Scripts/CameraController.cs" Line="37" Column="10" />
+      <File FileName="Assets/Scripts/CarAnimation.cs" Line="18" Column="1" />
+      <File FileName="Assets/Scripts/LightAnimation.cs" Line="25" Column="32" />
       <File FileName="Assets/Scripts/MainMenu.cs" Line="10" Column="78" />
-      <File FileName="Assets/Scripts/Menu.cs" Line="16" Column="33" />
+      <File FileName="Assets/Scripts/Menu.cs" Line="16" Column="22" />
       <File FileName="Assets/Scripts/Volume.cs" Line="14" Column="51" />
+      <File FileName="Assets/Scripts/Pickup.cs" Line="36" Column="107" />
+      <File FileName="Assets/Scripts/TvController.cs" Line="5" Column="38" />
+      <File FileName="Assets/Scripts/HungerController.cs" Line="28" Column="6" />
+      <File FileName="Assets/Scripts/NoiseController.cs" Line="35" Column="26" />
+      <File FileName="Assets/Scripts/SceneSequence.cs" Line="23" Column="30" />
+      <File FileName="Assets/Scripts/DestroyOverTime.cs" Line="15" Column="6" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

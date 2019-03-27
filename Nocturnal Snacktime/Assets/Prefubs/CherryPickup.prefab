@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 2409437033826536868}
   - component: {fileID: 2409437033826536866}
   - component: {fileID: 2409437033826536869}
+  - component: {fileID: 3290597535299772192}
   m_Layer: 0
   m_Name: CherryPickup
   m_TagString: Untagged
@@ -126,6 +127,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemButton: {fileID: 1212302780680712175, guid: be7d96084b61d4188ad654cdbb971dbd,
     type: 3}
+  pickupEffect: {fileID: 1498545114174289165, guid: 416a37cd331b24165838e8f017b90c80,
+    type: 3}
 --- !u!58 &2409437033826536869
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -142,3 +145,22 @@ CircleCollider2D:
   m_Offset: {x: 0.008470774, y: -0.03388357}
   serializedVersion: 2
   m_Radius: 0.32390004
+--- !u!95 &3290597535299772192
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2409437033826536871}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a70b0c6c55e5e4c00b788c06b67f63d3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

@@ -17,6 +17,8 @@ TagManager:
   - Carpet
   - Floor
   - TvOnCollider
+  - Snack
+  - OutOfBedRoom
   layers:
   - Default
   - TransparentFX
@@ -60,14 +62,14 @@ TagManager:
   - name: onGround
     uniqueID: 2537767073
     locked: 0
-  - name: Player
-    uniqueID: 543596419
-    locked: 0
   - name: food
     uniqueID: 2416724667
     locked: 0
   - name: donutsSprinkles
     uniqueID: 3295996981
+    locked: 0
+  - name: Player
+    uniqueID: 543596419
     locked: 0
   - name: UI
     uniqueID: 1099754371

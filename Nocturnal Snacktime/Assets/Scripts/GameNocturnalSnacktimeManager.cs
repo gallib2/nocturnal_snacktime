@@ -9,6 +9,7 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
     public Reciept recipe;
     public GameObject FinishLevelPanel;
     private bool isGameRunning = true;
+    public AudioSource caughtsound;
 
     void Awake()
     {
@@ -71,6 +72,7 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
 
     public void GameOver()
     {
+        caughtsound.PlayOneShot(caughtsound.clip);
         const int secondToWait = 2;
 
         StartCoroutine(PresentGameOverMenuWithWaiting(secondToWait));
