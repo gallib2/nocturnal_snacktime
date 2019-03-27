@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public Animator anim;
+
     public static event Action OnArriveKitchen;
     public static event Action OnTouchedTvController;
     public static event Action OnTurnTvOn;
@@ -40,6 +42,8 @@ public class PlayerMovement : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        anim = GetComponent<Animator>();
+
         hungerController = hungerController.GetComponent<HungerController>();
         noiseController = noiseController.GetComponent<NoiseController>();
 
@@ -55,6 +59,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
         //If moving, make stepping noises
         if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
@@ -106,6 +112,25 @@ public class PlayerMovement : MonoBehaviour
         {
             currentSpeed = moveSpeed;
         }
+
+        anim.SetFloat("MoveX", Input.GetAxisRaw("Horizontal"));
+        anim.SetFloat("MoveY", Input.GetAxisRaw("Vertical"));
+    }
+
+    void RotateLeft()
+    {
+        anim.SetBool("isLeft", true);
+        //anim.Play("PlayerAnim");
+       //anim.GetClip("PlayerAnim").
+        ////Quaternion theRotation = transform.localRotation;
+        ////theRotation.z *= 270;
+        ////transform.localRotation = theRotation;
+        //Quaternion theRotation = transform.localRotation;
+        //theRotation.x = -0.2f;
+        //theRotation.y = 37f;
+        //theRotation.z = -45f;
+
+        //transform.localRotation = theRotation;
     }
 
     private void CallQuiet()
