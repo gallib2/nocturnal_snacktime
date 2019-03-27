@@ -35,5 +35,6 @@ public class LightAnimation : MonoBehaviour
     {
         Debug.Log("enter function OpenTv....");
         animator.SetBool("IsTvOn", true);
+        gameObject.GetComponent<AudioSource>().Play();
     }
 }
