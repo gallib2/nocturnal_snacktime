@@ -85,6 +85,14 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    public void NextLevel()
+    {
+        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        int nextLevelIndex = currentLevel +1 > 3 ? 2 : currentLevel + 1;
+
+        SceneManager.LoadScene(nextLevelIndex);
+    }
+
 
     public void CheckIfGameEnd()
     {
