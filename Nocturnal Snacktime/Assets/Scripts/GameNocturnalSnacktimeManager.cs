@@ -10,6 +10,7 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
     public GameObject FinishLevelPanel;
     private bool isGameRunning = true;
     public AudioSource caughtsound;
+    private int endGameScene = 1;
 
     void Awake()
     {
@@ -20,6 +21,7 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
 
     private void Start()
     {
+        endGameScene = 1;
         recipe = recipe.GetComponent<Reciept>();
         roomLight = roomLight.GetComponent<RoomLight>();
     }
@@ -82,7 +84,7 @@ public class GameNocturnalSnacktimeManager : MonoBehaviour
     IEnumerator PresentGameOverMenuWithWaiting(int seconds)
     {
         yield return new WaitForSeconds(seconds);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(endGameScene);
     }
 
     public void NextLevel()
