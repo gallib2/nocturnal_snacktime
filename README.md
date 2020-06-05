@@ -1,4 +1,11 @@
 # Nocturnal Snacktime
+Nocturnal Snacktime is a casual/puzzle game.
+
+Pixel boy is hungry, the house is messy, the parents are sleeping.
+
+Your goal is to help Pixel boy to get some snacks without make any noise!
+
+And hey, hurry up! You don’t have much time until he will starve.
 
 ## Getting Started
 #### Follow the below instructions to get started with the source code:
